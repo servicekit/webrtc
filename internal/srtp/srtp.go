@@ -1,9 +1,18 @@
 package srtp
 
+/*
+#cgo pkg-config: libsrtp2
+
+#include "srtp.h"
+
+*/
+import "C"
 import (
+	"bytes"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"
+	"unsafe"
 
 	"github.com/pions/webrtc/pkg/rtp"
 	"github.com/pkg/errors"
@@ -20,10 +29,15 @@ const (
 	maxSequenceNumber = 65535
 )
 
+func init() {
+	C.srtp_init()
+}
+
 // Context represents a SRTP cryptographic context
 // which is a tuple of <SSRC, destination network address, destination transport port number>
 type Context struct {
-	ssrc uint32
+	rawSession *_Ctype_srtp_t
+	ssrc       uint32
 
 	rolloverCounter      uint32
 	rolloverHasProcessed bool
@@ -51,10 +65,20 @@ func CreateContext(masterKey, masterSalt []byte, profile string, ssrc uint32) (c
 		return c, errors.Errorf("SRTP Salt must be len %d, got %d", saltLen, masterSaltLen)
 	}
 
+	combined := make([]byte, len(masterKey))
+	copy(combined, masterKey)
+	combined = append(combined, masterSalt...)
+
+	rawProfile := C.CString(profile)
+	rawCombined := C.CBytes(combined)
+
+	sess := C.srtp_create_session(rawCombined, rawProfile)
+
 	c = &Context{
 		masterKey:  masterKey,
 		masterSalt: masterSalt,
 		ssrc:       ssrc,
+		rawSession: sess,
 	}
 
 	if c.sessionKey, err = c.generateSessionKey(); err != nil {
@@ -168,14 +192,30 @@ func (c *Context) updateRolloverCount(sequenceNumber uint16) {
 }
 
 // DecryptPacket decrypts a RTP packet with an encrypted payload
-func (c *Context) DecryptPacket(packet *rtp.Packet) bool {
+func (c *Context) DecryptPacket(packet *rtp.Packet, rawEncryptedPacket []byte) bool {
 	c.updateRolloverCount(packet.SequenceNumber)
+
+	rawIn := C.CBytes(rawEncryptedPacket)
+	defer C.free(unsafe.Pointer(rawIn))
+
+	rawPacket := C.srtp_decrypt_packet(c.rawSession, rawIn, C.int(len(rawEncryptedPacket)))
+	if rawPacket == nil {
+		return false
+	}
+	tmpPacket := &rtp.Packet{}
+	if err := tmpPacket.Unmarshal(C.GoBytes(rawPacket.data, rawPacket.len)); err != nil {
+		panic(err)
+	}
 
 	stream := cipher.NewCTR(c.block, c.generateCounter(packet.SequenceNumber))
 	stream.XORKeyStream(packet.Payload, packet.Payload)
 
 	// TODO remove tags, need to assert value
 	packet.Payload = packet.Payload[:len(packet.Payload)-10]
+
+	if !bytes.Equal(packet.Payload, tmpPacket.Payload) {
+		panic("")
+	}
 
 	// Replace payload with decrypted
 	packet.Raw = packet.Raw[0:packet.PayloadOffset]
