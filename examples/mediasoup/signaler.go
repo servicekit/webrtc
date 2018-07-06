@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/websocket"
+	"github.com/pions/webrtc"
+	"github.com/pions/webrtc/pkg/ice"
 	"github.com/pkg/errors"
 	"log"
 	"math/rand"
@@ -18,6 +20,7 @@ type Signaler struct {
 	done       chan struct{}
 	idMapMutex *sync.Mutex
 	idMap      map[int]chan []byte
+	rtcPeer    *webrtc.RTCPeerConnection
 	rand       *rand.Rand
 }
 
@@ -29,30 +32,44 @@ type request struct {
 }
 
 type response struct {
-	Response bool        `json:"response"`
-	ID       int         `json:"id"`
-	Ok       bool        `json:"ok"`
-	Data     interface{} `json:"data"`
+	Response bool            `json:"response"`
+	ID       int             `json:"id"`
+	Ok       bool            `json:"ok"`
+	Data     json.RawMessage `json:"data"`
 }
 
-func NewSignaler(rawUrl string) (*Signaler, error) {
-
-	header := make(http.Header)
-	header.Add("Sec-WebSocket-Protocol", "protoo")
-
-	c, _, err := websocket.DefaultDialer.Dial(rawUrl, header)
-	if err != nil {
-		return nil, errors.Wrap(err, "Failed to connect to signaler")
-	}
+func NewSignaler(rawUrl string) *Signaler {
 
 	rs := rand.NewSource(time.Now().UnixNano())
 
 	s := &Signaler{}
-	s.conn = c
 	s.idMapMutex = &sync.Mutex{}
 	s.rand = rand.New(rs)
 	s.done = make(chan struct{})
 	s.idMap = make(map[int]chan []byte)
+	s.url = rawUrl
+	s.rtcPeer = &webrtc.RTCPeerConnection{}
+
+	// Set the handler for ICE connection state
+	// This will notify you when the peer has connected/disconnected
+	s.rtcPeer.OnICEConnectionStateChange = func(connectionState ice.ConnectionState) {
+		fmt.Printf("Connection State has changed %s \n", connectionState.String())
+	}
+
+	return s
+}
+
+func (s *Signaler) Connect() error {
+
+	header := make(http.Header)
+	header.Add("Sec-WebSocket-Protocol", "protoo")
+
+	c, _, err := websocket.DefaultDialer.Dial(s.url, header)
+	if err != nil {
+		return errors.Wrap(err, "Failed to connect to signaler")
+	}
+
+	s.conn = c
 
 	go func() {
 		defer close(s.done)
@@ -73,7 +90,7 @@ func NewSignaler(rawUrl string) (*Signaler, error) {
 		}
 	}()
 
-	return s, nil
+	return nil
 }
 
 func (s *Signaler) Request(data interface{}) (chan []byte, error) {
