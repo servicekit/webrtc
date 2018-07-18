@@ -262,7 +262,7 @@ func (r *RTCPeerConnection) setICEServers(config RTCConfiguration) error {
 func parseICEServer(server RTCICEServer, rawURL string) (ice.URL, error) {
 	iceurl, err := ice.NewURL(rawURL)
 	if err != nil {
-		return iceurl, &SyntaxError{Err: err}
+		return iceurl, &SyntaxError{Err: ErrURLSyntaxInvalid, SubErr: err}
 	}
 
 	if iceurl.Type == ice.ServerTypeTURN {

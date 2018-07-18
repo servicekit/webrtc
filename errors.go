@@ -10,13 +10,22 @@ var (
 	ErrConnectionClosed = errors.New("connection closed")
 )
 
+func rtcErrorString(obj interface{}, err error, subErr error) string {
+	if subErr != nil {
+		return fmt.Sprintf("%T: %v (%v)", obj, err, subErr)
+	}
+
+	return fmt.Sprintf("%T: %v", obj, err)
+}
+
 // InvalidStateError indicates the object is in an invalid state.
 type InvalidStateError struct {
-	Err error
+	Err    error
+	SubErr error
 }
 
 func (e *InvalidStateError) Error() string {
-	return fmt.Sprintf("invalid state error: %v", e.Err)
+	return rtcErrorString(e, e.Err, e.SubErr)
 }
 
 // Types of UnknownErrors
@@ -26,11 +35,12 @@ var (
 
 // UnknownError indicates the operation failed for an unknown transient reason
 type UnknownError struct {
-	Err error
+	Err    error
+	SubErr error
 }
 
 func (e *UnknownError) Error() string {
-	return fmt.Sprintf("unknown error: %v", e.Err)
+	return rtcErrorString(e, e.Err, e.SubErr)
 }
 
 // Types of InvalidAccessErrors
@@ -43,11 +53,12 @@ var (
 
 // InvalidAccessError indicates the object does not support the operation or argument.
 type InvalidAccessError struct {
-	Err error
+	Err    error
+	SubErr error
 }
 
 func (e *InvalidAccessError) Error() string {
-	return fmt.Sprintf("invalid access error: %v", e.Err)
+	return rtcErrorString(e, e.Err, e.SubErr)
 }
 
 // Types of NotSupportedErrors
@@ -55,11 +66,12 @@ var ()
 
 // NotSupportedError indicates the operation is not supported.
 type NotSupportedError struct {
-	Err error
+	Err    error
+	SubErr error
 }
 
 func (e *NotSupportedError) Error() string {
-	return fmt.Sprintf("not supported error: %v", e.Err)
+	return rtcErrorString(e, e.Err, e.SubErr)
 }
 
 // Types of InvalidModificationErrors
@@ -72,21 +84,55 @@ var (
 
 // InvalidModificationError indicates the object can not be modified in this way.
 type InvalidModificationError struct {
-	Err error
+	Err    error
+	SubErr error
 }
 
 func (e *InvalidModificationError) Error() string {
-	return fmt.Sprintf("invalid modification error: %v", e.Err)
+	return rtcErrorString(e, e.Err, e.SubErr)
 }
 
 // Types of SyntaxErrors
-var ()
+var (
+	ErrURLSyntaxInvalid = errors.New("URL syntax is invalid")
+)
 
 // SyntaxError indicates the string did not match the expected pattern.
 type SyntaxError struct {
-	Err error
+	Err    error
+	SubErr error
 }
 
 func (e *SyntaxError) Error() string {
-	return fmt.Sprintf("syntax error: %v", e.Err)
+	return rtcErrorString(e, e.Err, e.SubErr)
 }
+
+// NotReadableError indicates failure to read object properties properly
+type NotReadableError struct {
+	Err    error
+	SubErr error
+}
+
+func (e *NotReadableError) Error() string {
+	return rtcErrorString(e, e.Err, e.SubErr)
+}
+
+// Types of NotReadableErrors
+var (
+	ErrBadIdentityAssertion = errors.New("failed identity assertion")
+)
+
+// OperationError indicates general operation errors
+type OperationError struct {
+	Err    error
+	SubErr error
+}
+
+func (e *OperationError) Error() string {
+	return rtcErrorString(e, e.Err, e.SubErr)
+}
+
+// Types of NotReadableErrors
+var (
+	ErrSDPGenerationFailed = errors.New("sdp generation failed")
+)
