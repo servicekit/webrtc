@@ -56,6 +56,7 @@ const (
 	ProtocolViolation                      ErrorCauseCode = 13
 )
 
+// nolint: gocyclo
 func (e ErrorCauseCode) String() string {
 	switch e {
 	case InvalidStreamIdentifier:

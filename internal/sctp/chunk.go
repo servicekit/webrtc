@@ -30,6 +30,7 @@ const (
 	SHUTDOWNCOMPLETE ChunkType = 14
 )
 
+// nolint: gocyclod
 func (c ChunkType) String() string {
 	switch c {
 	case PAYLOADDATA:
