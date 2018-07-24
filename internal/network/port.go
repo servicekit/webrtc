@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"github.com/pions/pkg/stun"
-	"github.com/pions/webrtc/internal/dtls"
-	"github.com/pions/webrtc/pkg/ice"
+	"github.com/servicekit/webrtc/internal/dtls"
+	"github.com/servicekit/webrtc/pkg/ice"
 	"golang.org/x/net/ipv4"
 )
 

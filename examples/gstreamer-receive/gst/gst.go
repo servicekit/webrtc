@@ -10,7 +10,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/pions/webrtc"
+	"github.com/servicekit/webrtc"
 )
 
 func init() {

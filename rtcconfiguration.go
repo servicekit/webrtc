@@ -3,7 +3,7 @@ package webrtc
 import (
 	"time"
 
-	"github.com/pions/webrtc/pkg/ice"
+	"github.com/servicekit/webrtc/pkg/ice"
 )
 
 // RTCICECredentialType indicates the type of credentials used to connect to an ICE server

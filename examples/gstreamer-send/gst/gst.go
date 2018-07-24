@@ -12,7 +12,7 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/pions/webrtc"
+	"github.com/servicekit/webrtc"
 )
 
 func init() {

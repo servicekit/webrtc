@@ -5,10 +5,10 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/pions/webrtc/internal/network"
-	"github.com/pions/webrtc/internal/sdp"
-	"github.com/pions/webrtc/pkg/ice"
-	"github.com/pions/webrtc/pkg/rtp"
+	"github.com/servicekit/webrtc/internal/network"
+	"github.com/servicekit/webrtc/internal/sdp"
+	"github.com/servicekit/webrtc/pkg/ice"
+	"github.com/servicekit/webrtc/pkg/rtp"
 )
 
 func init() {

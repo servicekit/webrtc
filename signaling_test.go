@@ -3,7 +3,7 @@ package webrtc
 import (
 	"testing"
 
-	"github.com/pions/webrtc/internal/sdp"
+	"github.com/servicekit/webrtc/internal/sdp"
 )
 
 func TestSetRemoteDescription(t *testing.T) {

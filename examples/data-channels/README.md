@@ -4,11 +4,11 @@ data-channels is a pion-WebRTC application that shows how you can send/recv Data
 ## Instructions
 ### Download data-channels
 ```
-go get github.com/pions/webrtc/examples/data-channels
+go get github.com/servicekit/webrtc/examples/data-channels
 ```
 
 ### Open data-channels example page
-[jsfiddle.net](https://jsfiddle.net/gh/get/library/pure/pions/webrtc/tree/master/examples/data-channels/jsfiddle)
+[jsfiddle.net](https://jsfiddle.net/gh/get/library/pure/servicekit/webrtc/tree/master/examples/data-channels/jsfiddle)
 
 ### Run data-channels, with your browsers SessionDescription as stdin
 In the jsfiddle the top textarea is your browser's session description, copy that and:

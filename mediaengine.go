@@ -3,9 +3,9 @@ package webrtc
 import (
 	"strconv"
 
-	"github.com/pions/webrtc/internal/sdp"
-	"github.com/pions/webrtc/pkg/rtp"
-	"github.com/pions/webrtc/pkg/rtp/codecs"
+	"github.com/servicekit/webrtc/internal/sdp"
+	"github.com/servicekit/webrtc/pkg/rtp"
+	"github.com/servicekit/webrtc/pkg/rtp/codecs"
 	"github.com/pkg/errors"
 )
 

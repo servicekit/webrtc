@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/pions/webrtc"
-	"github.com/pions/webrtc/pkg/ice"
+	"github.com/servicekit/webrtc"
+	"github.com/servicekit/webrtc/pkg/ice"
 )
 
 func randSeq(n int) string {

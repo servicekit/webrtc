@@ -8,9 +8,9 @@ import (
 	"bufio"
 	"encoding/base64"
 
-	"github.com/pions/webrtc"
-	"github.com/pions/webrtc/examples/gstreamer-send/gst"
-	"github.com/pions/webrtc/pkg/ice"
+	"github.com/servicekit/webrtc"
+	"github.com/servicekit/webrtc/examples/gstreamer-send/gst"
+	"github.com/servicekit/webrtc/pkg/ice"
 )
 
 func main() {

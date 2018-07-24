@@ -1,6 +1,6 @@
 package codecs
 
-import "github.com/pions/webrtc/pkg/rtp"
+import "github.com/servicekit/webrtc/pkg/rtp"
 
 // VP8Payloader payloads VP8 packets
 type VP8Payloader struct{}

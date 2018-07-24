@@ -10,11 +10,11 @@ This example requires you have GStreamer installed, these are the supported plat
 `pacman -S mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-libav mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-gst-plugins-bad mingw-w64-x86_64-gst-plugins-ugly`
 ### Download gstreamer-send
 ```
-go get github.com/pions/webrtc/examples/gstreamer-send
+go get github.com/servicekit/webrtc/examples/gstreamer-send
 ```
 
 ### Open gstreamer-send example page
-[jsfiddle.net](https://jsfiddle.net/gh/get/library/pure/pions/webrtc/tree/master/examples/gstreamer-send/jsfiddle) you should see two text-areas and a 'Start Session' button
+[jsfiddle.net](https://jsfiddle.net/gh/get/library/pure/servicekit/webrtc/tree/master/examples/gstreamer-send/jsfiddle) you should see two text-areas and a 'Start Session' button
 
 ### Run gstreamer-send with your browsers SessionDescription as stdin
 In the jsfiddle the top textarea is your browser, copy that and:

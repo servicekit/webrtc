@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/pions/pkg/stun"
-	"github.com/pions/webrtc/internal/sdp"
-	"github.com/pions/webrtc/pkg/ice"
+	"github.com/servicekit/webrtc/internal/sdp"
+	"github.com/servicekit/webrtc/pkg/ice"
 	"github.com/pkg/errors"
 )
 

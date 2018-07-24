@@ -1,8 +1,8 @@
 # Pion WebRTC
-[![Build Status](https://travis-ci.org/pions/webrtc.svg?branch=master)](https://travis-ci.org/pions/webrtc)
-[![GoDoc](https://godoc.org/github.com/pions/webrtc?status.svg)](https://godoc.org/github.com/pions/webrtc)
-[![Go Report Card](https://goreportcard.com/badge/github.com/pions/webrtc)](https://goreportcard.com/report/github.com/pions/webrtc)
-[![Coverage Status](https://coveralls.io/repos/github/pions/webrtc/badge.svg)](https://coveralls.io/github/pions/webrtc)
+[![Build Status](https://travis-ci.org/servicekit/webrtc.svg?branch=master)](https://travis-ci.org/servicekit/webrtc)
+[![GoDoc](https://godoc.org/github.com/servicekit/webrtc?status.svg)](https://godoc.org/github.com/servicekit/webrtc)
+[![Go Report Card](https://goreportcard.com/badge/github.com/servicekit/webrtc)](https://goreportcard.com/report/github.com/servicekit/webrtc)
+[![Coverage Status](https://coveralls.io/repos/github/servicekit/webrtc/badge.svg)](https://coveralls.io/github/servicekit/webrtc)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/18f4aec384894e6aac0b94effe51961d)](https://www.codacy.com/app/Sean-Der/webrtc)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 
@@ -41,7 +41,7 @@ your platform before using pion-WebRTC.
 brew install openssl
 export CPATH=`brew --prefix`/opt/openssl/include
 export LIBRARY_PATH=`brew --prefix`/opt/openssl/lib
-go get -u github.com/pions/webrtc
+go get -u github.com/servicekit/webrtc
 ```
 
 #### Fedora
@@ -61,10 +61,10 @@ Examples for common use cases, extend and modify to quickly get started.
 * [save-to-disk](examples/save-to-disk/README.md) Save video from your Webcam to disk
 
 ### Writing your own application
-The API should match the Javascript WebRTC API, and the [GoDoc](https://godoc.org/github.com/pions/webrtc) is actively maintained
+The API should match the Javascript WebRTC API, and the [GoDoc](https://godoc.org/github.com/servicekit/webrtc) is actively maintained
 
 ## Roadmap
-pion-WebRTC is in active development, you can find the roadmap [here](https://github.com/pions/webrtc/issues/9).
+pion-WebRTC is in active development, you can find the roadmap [here](https://github.com/servicekit/webrtc/issues/9).
 
 ## Questions/Support
 Sign up for the [Golang Slack](https://invite.slack.golangbridge.org/) and join the #pion channel for discussions and support

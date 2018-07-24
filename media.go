@@ -3,7 +3,7 @@ package webrtc
 import (
 	"math/rand"
 
-	"github.com/pions/webrtc/pkg/rtp"
+	"github.com/servicekit/webrtc/pkg/rtp"
 	"github.com/pkg/errors"
 )
 
